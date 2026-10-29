@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://dsn1i454dyb3w"]
+
+[ext_resource type="Texture2D" uid="uid://p7yxsv2iq3w4" path="res://temp floor.png" id="1_f3sb7"]
+[ext_resource type="Shader" uid="uid://tx1n1sqbjk3j" path="res://ground.gdshader" id="1_pkg7o"]
+[ext_resource type="PackedScene" uid="uid://dpypvj6ensqq6" path="res://player.tscn" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://bj6krulewu28u" path="res://coin.tscn" id="3_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://dsimoivwvi7tt" path="res://life_pickup.tscn" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://encfqlo0ykec" path="res://step.tscn" id="5_036b0"]
+[ext_resource type="Script" uid="uid://cgbuugas2kefr" path="res://spawner.gd" id="6_dwbse"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkg7o"]
+shader = ExtResource("1_pkg7o")
+shader_parameter/scale = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_aqk2v"]
+offsets = PackedFloat32Array(0, 0.7108434)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pt8y3"]
+gradient = SubResource("Gradient_aqk2v")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Node2D" type="Node2D" unique_id=1177867628]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=553995824]
+z_index = -1
+texture_filter = 1
+material = SubResource("ShaderMaterial_pkg7o")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -226.00024
+offset_top = -11309.0
+offset_right = 3773.9998
+offset_bottom = -7309.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.7853982
+scale = Vector2(4, 4)
+texture = ExtResource("1_f3sb7")
+stretch_mode = 1
+
+[node name="CharacterBody2D" parent="." unique_id=524976729 instance=ExtResource("2_fj7yv")]
+
+[node name="PointLight2D" type="PointLight2D" parent="CharacterBody2D" unique_id=1240920095]
+energy = 0.4
+texture = SubResource("GradientTexture2D_pt8y3")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1724501431]
+color = Color(0.42003992, 0.4862507, 0.5210685, 1)
+
+[node name="coin" parent="." unique_id=1300547217 instance=ExtResource("3_tlwt5")]
+position = Vector2(-254, 45)
+
+[node name="step" parent="." unique_id=1551817957 instance=ExtResource("5_036b0")]
+position = Vector2(-125, 1)
+
+[node name="spawner" type="Node" parent="." unique_id=1215277300]
+script = ExtResource("6_dwbse")
+
+[node name="Timer" type="Timer" parent="spawner" unique_id=528893771]
+wait_time = 15.0
+autostart = true
+
+[node name="life" parent="." unique_id=1886413937 instance=ExtResource("4_aqk2v")]
+position = Vector2(99, 118)
+
+[connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]

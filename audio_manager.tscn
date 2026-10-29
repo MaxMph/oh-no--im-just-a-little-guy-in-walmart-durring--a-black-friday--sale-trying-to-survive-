@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bo3mndq03yxip"]
+
+[ext_resource type="Script" uid="uid://dngaakorm8hxp" path="res://audio_manager.gd" id="1_bq1v2"]
+[ext_resource type="AudioStream" uid="uid://butdq8qsxalrd" path="res://sounds/fozy call main (1).wav" id="1_jisk1"]
+[ext_resource type="AudioStream" uid="uid://smoqc1xam1sl" path="res://sounds/JDSherbert - Ultimate UI SFX Pack - Cancel - 1.wav" id="3_nhx87"]
+[ext_resource type="AudioStream" uid="uid://clafqpd65qe1c" path="res://sounds/JDSherbert - Ultimate UI SFX Pack - Cursor - 1.wav" id="4_l2k84"]
+[ext_resource type="AudioStream" uid="uid://bdeiof6r20qmg" path="res://sounds/JDSherbert - Ultimate UI SFX Pack - Select - 1.wav" id="5_l55mp"]
+[ext_resource type="AudioStream" uid="uid://clm2y8awh7loh" path="res://sounds/alice_soundz-punch_h_05-224063.mp3" id="6_l2k84"]
+[ext_resource type="AudioStream" uid="uid://ivx7risvufsp" path="res://sounds/freesound_community-man-screaming-6958.mp3" id="7_v0gdi"]
+[ext_resource type="AudioStream" uid="uid://c2rsa4ltcqt8i" path="res://sounds/u_r7cny11q7r-man-death-scream-186763.mp3" id="8_7fh0q"]
+
+[node name="audio_manager" type="Node" unique_id=1474124602 groups=["audio_manager"]]
+script = ExtResource("1_bq1v2")
+
+[node name="music" type="AudioStreamPlayer" parent="." unique_id=613532844]
+stream = ExtResource("1_jisk1")
+volume_db = -10.0
+autoplay = true
+
+[node name="cancel" type="AudioStreamPlayer" parent="." unique_id=329971849]
+stream = ExtResource("3_nhx87")
+
+[node name="click" type="AudioStreamPlayer" parent="." unique_id=1331425810]
+stream = ExtResource("4_l2k84")
+
+[node name="select" type="AudioStreamPlayer" parent="." unique_id=1719656397]
+stream = ExtResource("5_l55mp")
+
+[node name="stomp" type="AudioStreamPlayer" parent="." unique_id=1598820405]
+stream = ExtResource("6_l2k84")
+volume_db = -20.0
+pitch_scale = 0.72
+max_polyphony = 5
+
+[node name="hit" type="AudioStreamPlayer" parent="." unique_id=1036233960]
+stream = ExtResource("7_v0gdi")
+volume_db = -9.123
+pitch_scale = 2.0
+
+[node name="die" type="AudioStreamPlayer" parent="." unique_id=1999905717]
+stream = ExtResource("8_7fh0q")
+pitch_scale = 1.5
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="." unique_id=2138539036]

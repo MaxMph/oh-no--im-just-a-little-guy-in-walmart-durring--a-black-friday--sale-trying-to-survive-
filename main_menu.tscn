@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://0da5xbst0dcn"]
+
+[ext_resource type="FontFile" uid="uid://dg6iut1flx03m" path="res://augiepixel.ttf" id="1_jix8l"]
+[ext_resource type="Script" uid="uid://cls8q8ykhhiln" path="res://main_menu.gd" id="1_nlkkf"]
+[ext_resource type="Theme" uid="uid://cvhdg47prbbjm" path="res://new_theme.tres" id="2_glbon"]
+[ext_resource type="Texture2D" uid="uid://b5puremfav6tm" path="res://arrow 2.png" id="3_glbon"]
+[ext_resource type="Shader" uid="uid://c2ihrk52ptufw" path="res://scroll.gdshader" id="3_jix8l"]
+[ext_resource type="Texture2D" uid="uid://p7yxsv2iq3w4" path="res://temp floor.png" id="4_qe12f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3fb6l"]
+font = ExtResource("1_jix8l")
+font_size = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jix8l"]
+shader = ExtResource("3_jix8l")
+shader_parameter/motion = Vector2(0, 3)
+shader_parameter/scale = 0.25
+shader_parameter/offset = Vector2(0, 0)
+
+[node name="main menu" type="Control" unique_id=1210381838]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nlkkf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=498503746]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 2.0
+offset_right = 302.0
+offset_bottom = 191.0
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=2138256523]
+texture_filter = 1
+layout_mode = 2
+text = "oh no! im just a little
+guy in walmart durring
+ a black friday 
+sale trying to survive!"
+label_settings = SubResource("LabelSettings_3fb6l")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1264511319]
+layout_mode = 2
+
+[node name="start" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1779442964]
+custom_maximum_size = Vector2(128, -1)
+layout_mode = 2
+theme = ExtResource("2_glbon")
+text = "Start"
+flat = true
+alignment = 0
+icon_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer" unique_id=25798777]
+visible = false
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("3_glbon")
+stretch_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1019342171]
+layout_mode = 2
+
+[node name="close" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=964514660]
+custom_maximum_size = Vector2(128, -1)
+layout_mode = 2
+theme = ExtResource("2_glbon")
+text = "Close"
+flat = true
+alignment = 0
+icon_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2" unique_id=291949086]
+visible = false
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("3_glbon")
+stretch_mode = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1175775537]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=717444507]
+z_index = -2
+texture_filter = 1
+material = SubResource("ShaderMaterial_jix8l")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.99976
+offset_top = -11328.001
+offset_right = 3774.0002
+offset_bottom = -7328.001
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.7853982
+scale = Vector2(4, 4)
+texture = ExtResource("4_qe12f")
+stretch_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=803406948]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.41960785, 0.4862745, 0.52156866, 1)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer" unique_id=305078612]
+color = Color(0.42003992, 0.4862507, 0.5210685, 1)
+
+[connection signal="focus_entered" from="VBoxContainer/HBoxContainer/start" to="." method="_on_start_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/HBoxContainer2/close" to="." method="_on_close_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/close" to="." method="_on_close_pressed"]

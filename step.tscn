@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://encfqlo0ykec"]
+
+[ext_resource type="Texture2D" uid="uid://doi0rb6ksu63h" path="res://foot 1.png" id="1_5tsfu"]
+[ext_resource type="Script" uid="uid://xa1u1cqx7rhi" path="res://step.gd" id="1_lv5kh"]
+
+[sub_resource type="Animation" id="Animation_lv5kh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Foot2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_aqagp"]
+resource_name = "land"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0.085, 0.085)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Foot2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.099999994, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.49),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_if3j2"]
+_data = {
+&"RESET": SubResource("Animation_lv5kh"),
+&"land": SubResource("Animation_aqagp")
+}
+
+[node name="step" type="Node2D" unique_id=1551817957]
+script = ExtResource("1_lv5kh")
+
+[node name="Foot2" type="Sprite2D" parent="." unique_id=624070008]
+visible = false
+modulate = Color(1, 0, 0, 1)
+z_index = 2
+texture = ExtResource("1_5tsfu")
+
+[node name="Foot1" type="Sprite2D" parent="." unique_id=31284347]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("1_5tsfu")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1612705902]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1958384430]
+polygon = PackedVector2Array(14, 4, 14, 23, 22, 33, 22, 54, 14, 69, -5, 70, -17, 59, -39, -36, -43, -45, -35, -59, -23, -68, 19, -73, 21, -62, 17, -48, 24, -20)
+disabled = true
+
+[node name="Timer" type="Timer" parent="." unique_id=1944551474]
+one_shot = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=580342084]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=252234431]
+position = Vector2(0, -1)
+scale = Vector2(1.1100746, 1.062063)
+polygon = PackedVector2Array(14.413445, 4.7078185, 14, 23, 22, 33, 21.620169, 52.727566, 13.512605, 67.79259, -3.6033614, 68.73415, -17.115967, 57.435387, -39, -36, -41.438656, -43.31193, -34.231934, -57.435387, -21.620169, -65.909454, 18.917646, -70.61728, 20.719328, -57.435387, 17.115967, -44.253498, 23.421848, -18.831274)
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=179921986]
+libraries/ = SubResource("AnimationLibrary_if3j2")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

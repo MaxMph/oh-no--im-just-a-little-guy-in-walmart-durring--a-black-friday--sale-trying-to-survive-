@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://cvhdg47prbbjm"]
+
+[ext_resource type="FontFile" uid="uid://dg6iut1flx03m" path="res://augiepixel.ttf" id="1_amlv4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_amlv4"]
+
+[resource]
+default_font = ExtResource("1_amlv4")
+Button/styles/focus = SubResource("StyleBoxEmpty_amlv4")

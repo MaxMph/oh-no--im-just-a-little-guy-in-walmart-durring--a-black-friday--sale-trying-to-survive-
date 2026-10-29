@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://bj6krulewu28u"]
+
+[ext_resource type="Script" uid="uid://1awbryi6yrqi" path="res://item_pickup.gd" id="1_0t63x"]
+[ext_resource type="Texture2D" uid="uid://do7hrcl2exsq6" path="res://triangle.png" id="1_d5gmh"]
+
+[sub_resource type="Animation" id="Animation_0t63x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Triangle:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1875, 0.25)]
+}
+
+[sub_resource type="Animation" id="Animation_v7riw"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Triangle:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.1875, 0.25), Vector2(0.0625, 0.25), Vector2(0.1875, 0.25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pdq0q"]
+_data = {
+&"RESET": SubResource("Animation_0t63x"),
+&"spin": SubResource("Animation_v7riw")
+}
+
+[sub_resource type="Gradient" id="Gradient_fj7yv"]
+offsets = PackedFloat32Array(0, 0.6385542)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d5gmh"]
+gradient = SubResource("Gradient_fj7yv")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_d5gmh"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.58433735)
+colors = PackedColorArray(1, 1, 1, 0.92156863, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0t63x"]
+gradient = SubResource("Gradient_d5gmh")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v7riw"]
+radius = 32.0
+
+[sub_resource type="Animation" id="Animation_wuhce"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7bonr"]
+resource_name = "pickup"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"delete"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w14il"]
+_data = {
+&"RESET": SubResource("Animation_wuhce"),
+&"pickup": SubResource("Animation_7bonr")
+}
+
+[node name="coin" type="Node2D" unique_id=1300547217]
+script = ExtResource("1_0t63x")
+coin = true
+
+[node name="Triangle" type="Sprite2D" parent="." unique_id=1535853868]
+modulate = Color(0.924523, 0.44332996, 1, 1)
+scale = Vector2(0.1875, 0.25)
+texture = ExtResource("1_d5gmh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2038253789]
+libraries/ = SubResource("AnimationLibrary_pdq0q")
+autoplay = &"spin"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1854338496]
+color = Color(0.847041, 0.0007208061, 0.87293404, 1)
+energy = 0.4
+texture = SubResource("GradientTexture2D_d5gmh")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=574055747]
+modulate = Color(0.011460636, 0.049010135, 0.1040589, 0.47058824)
+z_index = -1
+offset_left = -33.0
+offset_top = -17.0
+offset_right = 31.0
+offset_bottom = 47.0
+texture = SubResource("GradientTexture2D_0t63x")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1765185716]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2055680108]
+shape = SubResource("CircleShape2D_v7riw")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." unique_id=1909528770]
+libraries/ = SubResource("AnimationLibrary_w14il")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
